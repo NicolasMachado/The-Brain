@@ -1,4 +1,3 @@
-
 export const fourLetterWords = [
     'able','acid','aged','also','area','army','away','baby','back','ball','band','pick','pink',
     'bank','base','bath','bear','beat','been','beer','bell','belt','best','bill','bird','peak',
