@@ -4,7 +4,12 @@ import {connect} from 'react-redux';
 export function GameContainer(props) {
     return (
         <div className="game-container">
-            Game container
+            <div className="game-header">
+                Game Header
+            </div>
+            <div className="game-body">
+                Game Body
+            </div>
         </div>
     );
 }

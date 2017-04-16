@@ -1,9 +1,49 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&rel=stylesheet');
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'Lato', sans-serif;
     text-align: center;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+.App {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    background-color: #ccc;
+    min-height: 100vh;
+}
+
+.side-menu {
+    min-height: 100%;
+    min-width: 400px;
+    background-color: blue;
+}
+
+.game-container {
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    background-color: #ccc;
+}
+
+.game-header {
+    flex: 0.5;
+    background-color: red;
+
+}
+
+.game-body {
+    flex: 1;
+    background-color: yellow;
+
 }
