@@ -20,5 +20,4 @@ export class App extends React.Component {
 }
 
 export const mapStateToProps = state => (state);
-
 export default connect(mapStateToProps)(App);

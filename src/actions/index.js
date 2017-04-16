@@ -1,4 +1,5 @@
-export const START_NEW_GAME = 'START_NEW_GAME';
-export const startNewGame = () => ({
-    type: START_NEW_GAME
+export const CLICK_LETTER = 'CLICK_LETTER';
+export const clickLetter = (i) => ({
+    type: CLICK_LETTER,
+    i: i
 });
