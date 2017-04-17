@@ -1,17 +1,48 @@
-import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
 const listGames = ['fourLetters'];
 const game = getRandomGame();
 const newWordGame = generateWordGame();
-const timer = initializeTimer();
+const timer = initializeTimer(5, 0.5);
 export const initialState = Object.assign({}, {
     currentGame: game,
     timerBetweenGames: 1000,
 }, newWordGame, timer);
 
+// ACTIONS
 export const appReducer = (state=initialState, action) => {
+
+    if(action.type === COUNT_DOWN) {
+        return Object.assign({}, state,
+            {timer: {
+                timerLength: state.timer.timerLength,
+                currentTimer: state.timer.currentTimer - state.timer.timerResolution,
+                timerResolution: state.timer.timerResolution,
+                timerIsActive: state.timer.timerIsActive
+            }});
+    }
+
+    if(action.type === START_TIMER) {
+        return Object.assign({}, state,
+            {timer: {
+                timerLength: state.timer.timerLength,
+                currentTimer: state.timer.timerLength,
+                timerResolution: state.timer.timerResolution,
+                timerIsActive: true
+            }});
+    }
+
+    if(action.type === STOP_TIMER) {
+        return Object.assign({}, state,
+            {timer: {
+                timerLength: state.timer.timerLength,
+                currentTimer: 0,
+                timerResolution: state.timer.timerResolution,
+                timerIsActive: false
+            }});
+    }
 
     if(action.type === GET_NEXT_GAME) {
         let newGame;
@@ -76,12 +107,12 @@ export const appReducer = (state=initialState, action) => {
     return state;
 };
 
-function initializeTimer() {
+function initializeTimer(length, resolution) {
     return {
         timer: {
-            timerLength: 120,
-            currentTimer: 0,
-            timerResolution: 0.5,
+            timerLength: length,
+            currentTimer: length,
+            timerResolution: resolution,
             timerIsActive: false
         }}
 }
