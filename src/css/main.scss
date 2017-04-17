@@ -80,3 +80,26 @@ body {
         }
     }
 }
+
+.won-message {
+    padding: 10px;
+    font-size: 2em;
+    &.won {
+        color: #8feb98;
+        background-color: #3e824e;
+    }
+    &.defeat {
+        color: #e88b8b;
+        background-color: #934848;
+    }
+}
+
+.erase-button {
+    cursor: pointer;
+    padding: 10px;
+    display: inline-block;
+    background-color: #44479a;
+    &.inactive {
+        background-color: #a4a4a4;
+    }
+}

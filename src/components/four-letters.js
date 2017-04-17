@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {clickLetter} from '../actions';
+import {clickLetter, getNextGame} from '../actions';
 
 export class FourLetters extends React.Component {
     render() {
@@ -11,25 +11,34 @@ export class FourLetters extends React.Component {
 
         const wonDiv = () => {
             if (this.props.fourLetters.over) {
-                console.log('gdf')
+                setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), 1000);
                 if (this.props.fourLetters.won) {
-                    return <div className="won-message">VICTORY</div>
+                    return <div className="won-message won">CORRECT</div>
                 } else {
-                    return <div className="won-message">DEFEAT</div>
+                    return <div className="won-message defeat">INCORRECT</div>
                 }
             }
             return ''
         }
 
+        const eraseButton = () => {
+            let myClass = "erase-button";
+            if (this.props.fourLetters.proposition.length === 0) {
+                myClass = "erase-button inactive";
+            }
+            return <div className={myClass} >ERASE</div>
+        }
+
         return (
             <div className="four-letters">
-                <h2>Make a {this.props.fourLetters.wordToFind.length} letters word</h2>
+                <h2>Find the {this.props.fourLetters.wordToFind.length} letters word</h2>
                 Word to find: {this.props.fourLetters.wordToFind}<br />
                 {letterDivs}
                 <div className="word-proposition">
                     {this.props.fourLetters.proposition.toUpperCase()}
                 </div>
                 {wonDiv()}
+                {eraseButton()}
             </div>
         );
     }
