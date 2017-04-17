@@ -70,13 +70,13 @@ body {
     &:hover {
         background-color: darken($button-bk, 5%);
     }
-}
-
-.clicked {
-    border-bottom: 5px solid darken($button-clicked-bk, 8%);
-    color: $button-clicked-txt;
-    background-color: $button-clicked-bk;
-    &:hover {
-        background-color: $button-clicked-bk
+    &.clicked {
+        cursor: default;
+        border-bottom: 5px solid darken($button-clicked-bk, 8%);
+        color: $button-clicked-txt;
+        background-color: $button-clicked-bk;
+        &:hover {
+            background-color: $button-clicked-bk
+        }
     }
 }
