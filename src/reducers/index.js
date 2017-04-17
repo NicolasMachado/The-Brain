@@ -1,15 +1,27 @@
 import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME} from '../actions/';
 import {fourLetterWords} from '../utils';
 
+// INITIALIZATION
 const listGames = ['fourLetters'];
 const game = getRandomGame();
 const newWordGame = generateWordGame();
+const timer = initializeTimer();
 export const initialState = Object.assign({}, {
     currentGame: game,
-    timerBetweenGames: 1000
-}, newWordGame);
+    timerBetweenGames: 1000,
+}, newWordGame, timer);
 
 export const appReducer = (state=initialState, action) => {
+
+    if(action.type === GET_NEXT_GAME) {
+        let newGame;
+        if (action.gameToReset === 'fourLetters') {
+            newGame = generateWordGame();
+        }
+        const game = getRandomGame();
+        return Object.assign({}, state, {currentGame: game}, newGame);
+    }
+
     if(action.type === CLICK_LETTER && !state.fourLetters.selectedLetters[action.i]) { // check if letter has been clicked before
         let modifiedSelectedLetters = state.fourLetters.selectedLetters;
         modifiedSelectedLetters[action.i] = 1;
@@ -30,6 +42,7 @@ export const appReducer = (state=initialState, action) => {
                 over: isOver
             }});
     }
+
     if(action.type === GET_NEXT_GAME) {
         let newGame;
         if (action.gameToReset === 'fourLetters') {
@@ -62,6 +75,16 @@ export const appReducer = (state=initialState, action) => {
 
     return state;
 };
+
+function initializeTimer() {
+    return {
+        timer: {
+            timerLength: 120,
+            currentTimer: 0,
+            timerResolution: 0.5,
+            timerIsActive: false
+        }}
+}
 
 function getRandomGame() {
     return listGames[Math.floor(Math.random()*listGames.length)];
