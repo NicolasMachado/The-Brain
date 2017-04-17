@@ -11,7 +11,7 @@ export class FourLetters extends React.Component {
 
         const wonDiv = () => {
             if (this.props.fourLetters.over) {
-                setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), 1000);
+                setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
                 if (this.props.fourLetters.won) {
                     return <div className="won-message won">CORRECT</div>
                 } else {
@@ -48,7 +48,7 @@ export class FourLetters extends React.Component {
                 <div className="word-proposition">
                     {this.props.fourLetters.proposition.toUpperCase()}
                 </div>
-                {wonDiv()}
+                    {wonDiv()}
             </div>
         );
     }

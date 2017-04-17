@@ -4,7 +4,10 @@ import {fourLetterWords} from '../utils';
 const listGames = ['fourLetters'];
 const game = getRandomGame();
 const newWordGame = generateWordGame();
-export const initialState = Object.assign({}, {currentGame: game}, newWordGame);
+export const initialState = Object.assign({}, {
+    currentGame: game,
+    timerBetweenGames: 1000
+}, newWordGame);
 
 export const appReducer = (state=initialState, action) => {
     if(action.type === CLICK_LETTER && !state.fourLetters.selectedLetters[action.i]) { // check if letter has been clicked before
@@ -32,7 +35,8 @@ export const appReducer = (state=initialState, action) => {
         if (action.gameToReset === 'fourLetters') {
             newGame = generateWordGame();
         }
-        return Object.assign({}, state, newGame);
+        const game = getRandomGame();
+        return Object.assign({}, state, {currentGame: game}, newGame);
     }
 
     if(action.type === ERASE_WORD && !state.fourLetters.over && state.fourLetters.proposition.length > 0) {
@@ -52,7 +56,8 @@ export const appReducer = (state=initialState, action) => {
         if (action.gameToReset === 'fourLetters') {
             newGame = generateWordGame();
         }
-        return Object.assign({}, state, newGame)
+        const game = getRandomGame();
+        return Object.assign({}, state, {currentGame: game}, newGame)
     }
 
     return state;
