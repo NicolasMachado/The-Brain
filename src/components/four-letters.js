@@ -3,17 +3,11 @@ import {connect} from 'react-redux';
 import {clickLetter} from '../actions';
 
 export class FourLetters extends React.Component {
-
-    setClicked(e, i) {
-        this.props.dispatch(clickLetter(i));
-    }
-
     render() {
-
         const divs = this.props.fourLetters.shuffledWord.map((letter, i) => {
             console.log(this.props.fourLetters.selectedLetters[i]);
             const classClicked = this.props.fourLetters.selectedLetters[i] ? "letter-click clicked" : "letter-click";
-            return <div onClick={e => this.setClicked(e, i)} className={classClicked} key={i}>{letter.toUpperCase()}</div>
+            return <div onClick={e => this.props.dispatch(clickLetter(i, letter))} className={classClicked} key={i}>{letter.toUpperCase()}</div>
         });
 
         return (

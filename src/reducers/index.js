@@ -18,16 +18,16 @@ export const initialState = {
 };
 
 export const appReducer = (state=initialState, action) => {
-    if(action.type === CLICK_LETTER) {
+    if(action.type === CLICK_LETTER && !state.fourLetters.selectedLetters[action.i]) { // check if letter has been clicked before
         let modifiedSelectedLetters = state.fourLetters.selectedLetters;
         modifiedSelectedLetters[action.i] = 1;
         return Object.assign({}, state, {
             fourLetters: {
                 wordToFind: state.fourLetters.wordToFind,
                 shuffledWord: state.fourLetters.shuffledWord,
-                proposition: state.fourLetters.proposition,
+                proposition: state.fourLetters.proposition + action.letter,
                 selectedLetters: modifiedSelectedLetters
-            } } );
+            }});
     }
     return state;
 };
