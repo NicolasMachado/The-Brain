@@ -8,6 +8,11 @@ $button-bk: #36628a;
 $button-txt: lighten($button-bk, 60%);
 $button-clicked-bk: #7c7c7c;
 $button-clicked-txt: lighten($button-clicked-bk, 40%);
+$button-default-bk: #210aaa;
+$button-default-txt: #ececec;
+$button-pass-bk: #9a4444;
+$button-erase-bk: #9a8c44;
+$button-inactive-bk: #888888;
 
 html {
     height: 100%;
@@ -94,12 +99,41 @@ body {
     }
 }
 
-.erase-button {
+.button {
+    color: $button-default-txt;
+    background-color: $button-default-bk;
+    border-bottom: 3px solid darken($button-default-bk, 8%);
+    border-radius: 3px;
     cursor: pointer;
     padding: 10px;
+    margin: 10px;
     display: inline-block;
-    background-color: #44479a;
-    &.inactive {
-        background-color: #a4a4a4;
+    &.pass {
+        width: 100px;
+        background-color: $button-pass-bk;
+        border-bottom: 3px solid darken($button-pass-bk, 8%);
+        &:hover {
+            background-color: darken($button-pass-bk, 5%);
+        }
     }
+    &.erase {
+        width: 100px;
+        background-color: $button-erase-bk;
+        border-bottom: 3px solid darken($button-erase-bk, 8%);
+        &:hover {
+            background-color: darken($button-erase-bk, 5%);
+        }
+    }
+    &.inactive {
+        cursor: default;
+        background-color: $button-inactive-bk;
+        border-bottom: 3px solid darken($button-inactive-bk, 8%);
+        &:hover {
+            background-color: $button-inactive-bk;
+        }
+    }
+}
+
+.word-proposition {
+    font-size: 2em;
 }

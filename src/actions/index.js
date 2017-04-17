@@ -10,3 +10,14 @@ export const getNextGame = (gameToReset) => ({
     type: GET_NEXT_GAME,
     gameToReset
 });
+
+export const ERASE_WORD = 'ERASE_WORD';
+export const eraseWord = () => ({
+    type: ERASE_WORD
+});
+
+export const PASS_GAME = 'PASS_GAME';
+export const passGame = (gameToReset) => ({
+    type: PASS_GAME,
+    gameToReset
+});

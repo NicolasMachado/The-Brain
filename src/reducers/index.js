@@ -1,4 +1,4 @@
-import {CLICK_LETTER, GET_NEXT_GAME} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 const listGames = ['fourLetters'];
@@ -28,8 +28,31 @@ export const appReducer = (state=initialState, action) => {
             }});
     }
     if(action.type === GET_NEXT_GAME) {
-        const newWordGame = generateWordGame();
-        return Object.assign({}, state, newWordGame);
+        let newGame;
+        if (action.gameToReset === 'fourLetters') {
+            newGame = generateWordGame();
+        }
+        return Object.assign({}, state, newGame);
+    }
+
+    if(action.type === ERASE_WORD && !state.fourLetters.over && state.fourLetters.proposition.length > 0) {
+        return Object.assign({}, state, {
+            fourLetters: {
+                wordToFind: state.fourLetters.wordToFind,
+                shuffledWord: state.fourLetters.shuffledWord,
+                proposition: '',
+                selectedLetters: [],
+                won: state.fourLetters.won,
+                over: state.fourLetters.over
+            }});
+    }
+
+    if(action.type === PASS_GAME && !state.fourLetters.over) {
+        let newGame;
+        if (action.gameToReset === 'fourLetters') {
+            newGame = generateWordGame();
+        }
+        return Object.assign({}, state, newGame)
     }
 
     return state;
