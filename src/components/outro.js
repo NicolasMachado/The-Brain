@@ -8,7 +8,7 @@ export class Outro extends React.Component {
             <div className="outro">
                 End of game, your score is...<br />
                 <div onClick={() => {this.props.dispatch(startGame()); this.props.dispatch(startTimer())}} className="button">
-                    START GAME
+                    RETRY
                 </div>
             </div>
         );

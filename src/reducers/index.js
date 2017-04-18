@@ -1,4 +1,4 @@
-import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
@@ -8,19 +8,25 @@ const timer = initializeTimer(5, 0.5);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
     timerBetweenGames: 1000,
+    timeOut: false,
+    over: false
 }, newWordGame, timer);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
 
+    if(action.type === UPDATE_TIME_OUT) {
+        return Object.assign({}, state, {timeOut: action.bool});
+    }
+
     if(action.type === END_GAME) {
-        const game = getRandomGame();
         return Object.assign({}, state, {currentGame: 'outro'});
     }
 
     if(action.type === START_GAME) {
         const game = getRandomGame();
-        return Object.assign({}, state, initialState, {currentGame: game});
+        const newWordGame = generateWordGame();
+        return Object.assign({}, state, initialState, newWordGame, {currentGame: game});
     }
 
     if(action.type === COUNT_DOWN) {
@@ -53,13 +59,13 @@ export const appReducer = (state=initialState, action) => {
             }});
     }
 
-    if(action.type === GET_NEXT_GAME) {
+    if(action.type === GET_NEXT_GAME && state.timer.currentTimer > 0) {
         let newGame;
         if (action.gameToReset === 'fourLetters') {
             newGame = generateWordGame();
         }
         const game = getRandomGame();
-        return Object.assign({}, state, {currentGame: game}, newGame);
+        return Object.assign({}, state, {currentGame: game, timeOut: false, over: false}, newGame);
     }
 
     if(action.type === CLICK_LETTER && !state.fourLetters.selectedLetters[action.i]) { // check if letter has been clicked before
@@ -73,38 +79,28 @@ export const appReducer = (state=initialState, action) => {
             }
         }
         return Object.assign({}, state, {
+            over: isOver,
             fourLetters: {
                 wordToFind: state.fourLetters.wordToFind,
                 shuffledWord: state.fourLetters.shuffledWord,
                 proposition: state.fourLetters.proposition + action.letter,
                 selectedLetters: modifiedSelectedLetters,
-                won: isWon,
-                over: isOver
+                won: isWon
             }});
     }
 
-    if(action.type === GET_NEXT_GAME) {
-        let newGame;
-        if (action.gameToReset === 'fourLetters') {
-            newGame = generateWordGame();
-        }
-        const game = getRandomGame();
-        return Object.assign({}, state, {currentGame: game}, newGame);
-    }
-
-    if(action.type === ERASE_WORD && !state.fourLetters.over && state.fourLetters.proposition.length > 0) {
+    if(action.type === ERASE_WORD && !state.over && state.fourLetters.proposition.length > 0) {
         return Object.assign({}, state, {
             fourLetters: {
                 wordToFind: state.fourLetters.wordToFind,
                 shuffledWord: state.fourLetters.shuffledWord,
                 proposition: '',
                 selectedLetters: [],
-                won: state.fourLetters.won,
-                over: state.fourLetters.over
+                won: state.fourLetters.won
             }});
     }
 
-    if(action.type === PASS_GAME && !state.fourLetters.over) {
+    if(action.type === PASS_GAME && !state.over) {
         let newGame;
         if (action.gameToReset === 'fourLetters') {
             newGame = generateWordGame();
@@ -142,8 +138,7 @@ function generateWordGame() {
         shuffledWord: breakDownLetters(wordToFind),
         proposition: '',
         selectedLetters: selectedLetters,
-        won: false,
-        over: false
+        won: false
     }}
 }
 

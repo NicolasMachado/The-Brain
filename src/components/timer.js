@@ -6,23 +6,20 @@ export class Timer extends React.Component {
     componentDidMount() {
         if (this.props.timer.timerIsActive) {
             this.timer = setInterval(() => {
-                this.props.dispatch(countDown());
                 this.checkTimer();
             }, this.props.timer.timerResolution*1000);
         }
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
     checkTimer() {
-        console.log('checking');
-        if (this.props.timer.currentTimer < 0) {
+        console.log(this.timer);
+        if (!this.props.timeOut) {
+            this.props.dispatch(countDown());
+        }
+        if (this.props.timer.currentTimer <= 0) {
             this.props.dispatch(stopTimer());
             this.props.dispatch(endGame());
             clearInterval(this.timer);
-            clearInterval(this.timerCheck);
         }
     }
 

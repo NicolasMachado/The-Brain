@@ -46,3 +46,9 @@ export const END_GAME = 'END_GAME';
 export const endGame = () => ({
     type: END_GAME
 });
+
+export const UPDATE_TIME_OUT = 'UPDATE_TIME_OUT';
+export const updateTimeOut = (bool) => ({
+    type: UPDATE_TIME_OUT,
+    bool
+});

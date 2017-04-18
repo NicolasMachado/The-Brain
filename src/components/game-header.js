@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Timer from './timer';
-import {startTimer} from '../actions';
 
 export class GameHeader extends React.Component {
     render() {
@@ -13,8 +12,6 @@ export class GameHeader extends React.Component {
         }
         return (
             <div className="game-header">
-            <button onClick={() => this.props.dispatch(startTimer())}>START</button>
-                <br />Timer is currently {String(this.props.timer.timerIsActive)}
                 {timer()}
             </div>
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {clickLetter, getNextGame, eraseWord, passGame} from '../actions';
+import {clickLetter, getNextGame, eraseWord, passGame, updateTimeOut} from '../actions';
 
 export class FourLetters extends React.Component {
     render() {
@@ -10,8 +10,12 @@ export class FourLetters extends React.Component {
         });
 
         const wonDiv = () => {
-            if (this.props.fourLetters.over) {
-                setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
+            if (this.props.over) {
+                if (this.props.timeOut === false) {
+                    //this.props.dispatch(updateTimeOut(true));
+                    setTimeout(() => this.props.dispatch(updateTimeOut(true)), 0);
+                    setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
+                }
                 if (this.props.fourLetters.won) {
                     return <div className="won-message won">CORRECT</div>
                 } else {
@@ -23,7 +27,7 @@ export class FourLetters extends React.Component {
 
         const eraseButton = () => {
             let myClass = "button erase";
-            if (this.props.fourLetters.proposition.length === 0 || this.props.fourLetters.over) {
+            if (this.props.fourLetters.proposition.length === 0 || this.props.over) {
                 myClass = "button erase inactive";
             }
             return <div onClick={() => this.props.dispatch(eraseWord())} className={myClass} >ERASE</div>
@@ -31,7 +35,7 @@ export class FourLetters extends React.Component {
 
         const passButton = () => {
             let myClass = "button pass";
-            if (this.props.fourLetters.over) {
+            if (this.props.over) {
                 myClass = "button pass inactive";
             }
             return <div onClick={() => this.props.dispatch(passGame('fourLetters'))} className={myClass}>PASS</div>
