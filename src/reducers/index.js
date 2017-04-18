@@ -4,7 +4,7 @@ import {fourLetterWords} from '../utils';
 // INITIALIZATION
 const listGames = ['fourLetters'];
 const newWordGame = generateWordGame();
-const timer = initializeTimer(5, 0.5);
+const timer = initializeTimer(120, 0.3);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
     timerBetweenGames: 1000,

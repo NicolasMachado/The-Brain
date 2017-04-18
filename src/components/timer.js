@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {countDown, stopTimer, endGame} from '../actions';
+import CircularProgress from './CircularProgress';
 
 export class Timer extends React.Component {
     componentDidMount() {
@@ -12,7 +13,7 @@ export class Timer extends React.Component {
     }
 
     checkTimer() {
-        console.log(this.timer);
+        console.log((this.props.timer.currentTimer/this.props.timer.timerLength)*100);
         if (!this.props.timeOut) {
             this.props.dispatch(countDown());
         }
@@ -23,11 +24,23 @@ export class Timer extends React.Component {
         }
     }
 
+    displayTime() {
+        const minutes = Math.floor(this.props.timer.currentTimer/60);
+        const seconds = Math.floor(this.props.timer.currentTimer - (minutes*60));
+        const addedZeroS = seconds < 10 ? '0' : '';
+        const addedZeroM = minutes < 10 ? '0' : '';
+        return `${addedZeroM}${minutes}:${addedZeroS}${seconds}`
+    }
+
     render() {
         return (
             <div className="game-header">
                 <div className="timer-container">
-                    {Math.floor(this.props.timer.currentTimer)}
+                    <CircularProgress
+                        strokeWidth="15"
+                        radius="80"
+                        percentage={Math.floor((this.props.timer.currentTimer/this.props.timer.timerLength)*100)}
+                        timeText={this.displayTime()}/>
                 </div>
             </div>
         );
