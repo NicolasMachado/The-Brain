@@ -3,6 +3,20 @@ import {connect} from 'react-redux';
 import {clickLetter, getNextGame, eraseWord, passGame, updateTimeOut, updatePoints} from '../actions';
 
 export class FourLetters extends React.Component {
+
+    componentDidUpdate() {
+        
+        if (this.props.over) {
+            if (this.props.timeOut === false) {
+                this.props.dispatch(updateTimeOut(true));
+                setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
+                if (this.props.fourLetters.won) {
+                    this.props.dispatch(updatePoints(10));
+                }
+            }
+        }
+    }
+
     render() {
         const letterDivs = this.props.fourLetters.shuffledWord.map((letter, i) => {
             const classClicked = this.props.fourLetters.selectedLetters[i] ? "letter-click clicked" : "letter-click";
@@ -11,13 +25,7 @@ export class FourLetters extends React.Component {
 
         const wonDiv = () => {
             if (this.props.over) {
-                if (this.props.timeOut === false) {
-                    //this.props.dispatch(updateTimeOut(true));
-                    setTimeout(() => this.props.dispatch(updateTimeOut(true)), 1);
-                    setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
-                }
                 if (this.props.fourLetters.won) {
-                    setTimeout(() => this.props.dispatch(updatePoints(10)), 1);
                     return <div className="won-message won">CORRECT</div>
                 } else {
                     return <div className="won-message defeat">INCORRECT</div>
@@ -59,5 +67,11 @@ export class FourLetters extends React.Component {
     }
 }
 
-export const mapStateToProps = state => (state);
+export const mapStateToProps = ({over, timeOut, fourLetters, timerBetweenGames}) => ({
+    timerBetweenGames,
+    timeOut,
+    over,
+    fourLetters
+});
+
 export default connect(mapStateToProps)(FourLetters);
