@@ -3,17 +3,37 @@ import {connect} from 'react-redux';
 import {clickLetter, getNextGame, eraseWord, passGame, updateTimeOut, updatePoints} from '../actions';
 
 export class FourLetters extends React.Component {
+    componentDidMount() {
+        this.resetBonusPoints();
+        this.innerTimer = setInterval(() => { this.innerTimerTick()}, 250);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.innerTimer);
+    }
 
     componentDidUpdate() {
-        
         if (this.props.over) {
             if (this.props.timeOut === false) {
                 this.props.dispatch(updateTimeOut(true));
                 setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
                 if (this.props.fourLetters.won) {
-                    this.props.dispatch(updatePoints(10));
+                    this.props.dispatch(updatePoints(10 + this.bonusPoints));
                 }
+                setTimeout(() => this.resetBonusPoints(), this.props.timerBetweenGames);
             }
+        }
+    }
+
+    resetBonusPoints() {
+        this.bonusPoints = 50;
+    }
+
+    innerTimerTick() {
+        this.bonusPoints -= 1;
+            console.log(this.bonusPoints);
+        if (this.bonusPoints < 0) {
+            this.bonusPoints = 0;
         }
     }
 
@@ -26,7 +46,8 @@ export class FourLetters extends React.Component {
         const wonDiv = () => {
             if (this.props.over) {
                 if (this.props.fourLetters.won) {
-                    return <div className="won-message won">CORRECT</div>
+                    return <div><div className="won-message won">CORRECT</div>
+                            <div className="points-display">10 + {this.bonusPoints}</div></div>
                 } else {
                     return <div className="won-message defeat">INCORRECT</div>
                 }
