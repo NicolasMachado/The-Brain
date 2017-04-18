@@ -13,7 +13,6 @@ export class Timer extends React.Component {
     }
 
     checkTimer() {
-        console.log((this.props.timer.currentTimer/this.props.timer.timerLength)*100);
         if (!this.props.timeOut) {
             this.props.dispatch(countDown());
         }
@@ -39,8 +38,11 @@ export class Timer extends React.Component {
                     <CircularProgress
                         strokeWidth="15"
                         radius="80"
-                        percentage={Math.floor((this.props.timer.currentTimer/this.props.timer.timerLength)*100)}
+                        percentage={(this.props.timer.currentTimer/this.props.timer.timerLength)*100}
                         timeText={this.displayTime()}/>
+                </div>
+                <div>
+                    Points: {this.props.points}
                 </div>
             </div>
         );

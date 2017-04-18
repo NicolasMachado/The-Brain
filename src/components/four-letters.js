@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {clickLetter, getNextGame, eraseWord, passGame, updateTimeOut} from '../actions';
+import {clickLetter, getNextGame, eraseWord, passGame, updateTimeOut, updatePoints} from '../actions';
 
 export class FourLetters extends React.Component {
     render() {
@@ -13,10 +13,11 @@ export class FourLetters extends React.Component {
             if (this.props.over) {
                 if (this.props.timeOut === false) {
                     //this.props.dispatch(updateTimeOut(true));
-                    setTimeout(() => this.props.dispatch(updateTimeOut(true)), 0);
+                    setTimeout(() => this.props.dispatch(updateTimeOut(true)), 1);
                     setTimeout(() => this.props.dispatch(getNextGame('fourLetters')), this.props.timerBetweenGames);
                 }
                 if (this.props.fourLetters.won) {
+                    setTimeout(() => this.props.dispatch(updatePoints(10)), 1);
                     return <div className="won-message won">CORRECT</div>
                 } else {
                     return <div className="won-message defeat">INCORRECT</div>

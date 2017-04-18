@@ -1,19 +1,25 @@
-import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
 const listGames = ['fourLetters'];
 const newWordGame = generateWordGame();
-const timer = initializeTimer(120, 0.3);
+const timer = initializeTimer(120, 0.25);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
     timerBetweenGames: 1000,
     timeOut: false,
-    over: false
+    over: false,
+    points: 0
 }, newWordGame, timer);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
+
+    if(action.type === UPDATE_POINTS) {
+        const points = state.points + action.amount;
+        return Object.assign({}, state, {points: points});
+    }
 
     if(action.type === UPDATE_TIME_OUT) {
         return Object.assign({}, state, {timeOut: action.bool});

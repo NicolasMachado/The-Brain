@@ -145,7 +145,6 @@ body {
 }
 
 .timer-container {
-    cursor: pointer;
     padding: 50px;
 }
 
@@ -160,12 +159,11 @@ body {
 }
 
 .CircularProgress-Fg {
-    transition: stroke-dashoffset .1s ease-in-out;
+    transition: stroke-dashoffset 0.25s ease-in-out;
     stroke: $progress-fg-color;
 }
 
 .CircularProgress-Text {
-    font-family: sans-serif;
     font-size: 30px;
     fill: $progress-fg-color-text;
 

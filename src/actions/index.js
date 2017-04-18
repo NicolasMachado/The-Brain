@@ -52,3 +52,9 @@ export const updateTimeOut = (bool) => ({
     type: UPDATE_TIME_OUT,
     bool
 });
+
+export const UPDATE_POINTS = 'UPDATE_POINTS';
+export const updatePoints = (amount) => ({
+    type: UPDATE_POINTS,
+    amount
+});
