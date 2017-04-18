@@ -1,18 +1,27 @@
-import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
 const listGames = ['fourLetters'];
-const game = getRandomGame();
 const newWordGame = generateWordGame();
 const timer = initializeTimer(5, 0.5);
 export const initialState = Object.assign({}, {
-    currentGame: game,
+    currentGame: 'intro',
     timerBetweenGames: 1000,
 }, newWordGame, timer);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
+
+    if(action.type === END_GAME) {
+        const game = getRandomGame();
+        return Object.assign({}, state, {currentGame: 'outro'});
+    }
+
+    if(action.type === START_GAME) {
+        const game = getRandomGame();
+        return Object.assign({}, state, initialState, {currentGame: game});
+    }
 
     if(action.type === COUNT_DOWN) {
         return Object.assign({}, state,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {countDown, stopTimer} from '../actions';
+import {countDown, stopTimer, endGame} from '../actions';
 
 export class Timer extends React.Component {
     componentDidMount() {
@@ -20,6 +20,7 @@ export class Timer extends React.Component {
         console.log('checking');
         if (this.props.timer.currentTimer < 0) {
             this.props.dispatch(stopTimer());
+            this.props.dispatch(endGame());
             clearInterval(this.timer);
             clearInterval(this.timerCheck);
         }

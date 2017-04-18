@@ -36,3 +36,13 @@ export const COUNT_DOWN = 'COUNT_DOWN';
 export const countDown = () => ({
     type: COUNT_DOWN
 });
+
+export const START_GAME = 'START_GAME';
+export const startGame = () => ({
+    type: START_GAME
+});
+
+export const END_GAME = 'END_GAME';
+export const endGame = () => ({
+    type: END_GAME
+});
