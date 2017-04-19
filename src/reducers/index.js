@@ -10,7 +10,8 @@ export const initialState = Object.assign({}, {
     timerBetweenGames: 1000,
     timeOut: false,
     over: false,
-    points: 0
+    points: 0,
+    won: false
 }, newWordGame, timer);
 
 // ACTIONS
@@ -71,7 +72,7 @@ export const appReducer = (state=initialState, action) => {
             newGame = generateWordGame();
         }
         const game = getRandomGame();
-        return Object.assign({}, state, {currentGame: game, timeOut: false, over: false}, newGame);
+        return Object.assign({}, state, {currentGame: game, timeOut: false, over: false, won: false}, newGame);
     }
 
     if(action.type === CLICK_LETTER && !state.fourLetters.selectedLetters[action.i]) { // check if letter has been clicked before
@@ -86,12 +87,12 @@ export const appReducer = (state=initialState, action) => {
         }
         return Object.assign({}, state, {
             over: isOver,
+            won: isWon,
             fourLetters: {
                 wordToFind: state.fourLetters.wordToFind,
                 shuffledWord: state.fourLetters.shuffledWord,
                 proposition: state.fourLetters.proposition + action.letter,
-                selectedLetters: modifiedSelectedLetters,
-                won: isWon
+                selectedLetters: modifiedSelectedLetters
             }});
     }
 
@@ -101,8 +102,7 @@ export const appReducer = (state=initialState, action) => {
                 wordToFind: state.fourLetters.wordToFind,
                 shuffledWord: state.fourLetters.shuffledWord,
                 proposition: '',
-                selectedLetters: [],
-                won: state.fourLetters.won
+                selectedLetters: []
             }});
     }
 
@@ -143,8 +143,7 @@ function generateWordGame() {
         wordToFind: wordToFind,
         shuffledWord: breakDownLetters(wordToFind),
         proposition: '',
-        selectedLetters: selectedLetters,
-        won: false
+        selectedLetters: selectedLetters
     }}
 }
 
