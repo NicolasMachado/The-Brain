@@ -25,20 +25,16 @@ export class FourLetters extends React.Component {
         }
     }
 
-    resetBonusPoints() {
-        if (this.innerTimer) {
-            clearInterval(this.innerTimer);
+    resetBonusPoints(bonusPoints, innerTimer) {
+        if (innerTimer) {
+            clearInterval(innerTimer);
         }
         this.bonusPoints = 50;
         this.innerTimer = setInterval(() => { this.innerTimerTick()}, 250);
     }
 
     innerTimerTick() {
-        this.bonusPoints -= 1;
-        console.log(this.bonusPoints);
-        if (this.bonusPoints < 1) {
-            clearInterval(this.innerTimer);
-        }
+        this.bonusPoints = this.props.innerTimerTick(this.bonusPoints, this.innerTimer);
     }
 
     render() {
@@ -66,7 +62,7 @@ export class FourLetters extends React.Component {
                 <div className="word-proposition">
                     {this.props.fourLetters.proposition.toUpperCase()}
                 </div>
-                    {this.props.wonDiv()}
+                    {this.props.wonDiv(this.bonusPoints)}
             </div>
         );
     }

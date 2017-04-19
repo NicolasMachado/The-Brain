@@ -6,7 +6,7 @@ export class Outro extends React.Component {
     render() {
         return (
             <div className="outro">
-                End of game, your score is...<br />
+                End of game, your score is {this.props.points}<br />
                 <div onClick={() => {this.props.dispatch(startGame()); this.props.dispatch(startTimer())}} className="button">
                     RETRY
                 </div>

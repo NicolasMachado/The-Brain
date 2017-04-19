@@ -58,3 +58,9 @@ export const updatePoints = (amount) => ({
     type: UPDATE_POINTS,
     amount
 });
+
+export const GUESS_CALCULUS = 'GUESS_CALCULUS';
+export const guessCalculus = (number) => ({
+    type: GUESS_CALCULUS,
+    number
+});

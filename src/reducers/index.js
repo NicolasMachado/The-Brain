@@ -1,9 +1,10 @@
-import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS, GUESS_CALCULUS} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
-const listGames = ['fourLetters'];
+const listGames = ['fourLetters', 'calculus'];
 const newWordGame = generateWordGame();
+const calculus = generateCalculusGame();
 const timer = initializeTimer(120, 0.25);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
@@ -12,7 +13,7 @@ export const initialState = Object.assign({}, {
     over: false,
     points: 0,
     won: false
-}, newWordGame, timer);
+}, newWordGame, timer, calculus);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
@@ -67,10 +68,7 @@ export const appReducer = (state=initialState, action) => {
     }
 
     if(action.type === GET_NEXT_GAME && state.timer.currentTimer > 0) {
-        let newGame;
-        if (action.gameToReset === 'fourLetters') {
-            newGame = generateWordGame();
-        }
+        const newGame = selectRandomNewGame(action.gameToReset);
         const game = getRandomGame();
         return Object.assign({}, state, {currentGame: game, timeOut: false, over: false, won: false}, newGame);
     }
@@ -96,6 +94,19 @@ export const appReducer = (state=initialState, action) => {
             }});
     }
 
+    if(action.type === GUESS_CALCULUS) {
+        console.log(action.number);
+        console.log(state.calculus.expectedResult);
+        let isWon = false, isOver = true;
+        if (action.number === state.calculus.expectedResult) { // is it won?
+            isWon = true;
+        }
+        return Object.assign({}, state, {
+            over: isOver,
+            won: isWon
+        });
+    }
+
     if(action.type === ERASE_WORD && !state.over && state.fourLetters.proposition.length > 0) {
         return Object.assign({}, state, {
             fourLetters: {
@@ -107,16 +118,21 @@ export const appReducer = (state=initialState, action) => {
     }
 
     if(action.type === PASS_GAME && !state.over) {
-        let newGame;
-        if (action.gameToReset === 'fourLetters') {
-            newGame = generateWordGame();
-        }
+        const newGame = selectRandomNewGame(action.gameToReset);
         const game = getRandomGame();
         return Object.assign({}, state, {currentGame: game}, newGame)
     }
 
     return state;
 };
+
+function selectRandomNewGame(gameToReset) {
+    if (gameToReset === 'fourLetters') {
+        return generateWordGame()
+    } else if (gameToReset === 'calculus') {
+        return generateCalculusGame()
+    }
+}
 
 function initializeTimer(length, resolution) {
     return {
@@ -140,10 +156,24 @@ function generateWordGame() {
     }
     return {
         fourLetters: {
-        wordToFind: wordToFind,
-        shuffledWord: breakDownLetters(wordToFind),
-        proposition: '',
-        selectedLetters: selectedLetters
+            wordToFind: wordToFind,
+            shuffledWord: breakDownLetters(wordToFind),
+            proposition: '',
+            selectedLetters: selectedLetters
+    }}
+}
+
+function generateCalculusGame() {
+    const signs = ['+', '-', '*'];
+    const randSign1 = signs[Math.floor(Math.random()*signs.length)];
+    const randSign2 = signs[Math.floor(Math.random()*signs.length)];
+    const randExpression = String(Math.ceil(Math.random()*10)) + randSign1 + String(Math.ceil(Math.random()*10)) + randSign2 + String(Math.ceil(Math.random()*10));
+
+    return {
+        calculus: {
+            expression: randExpression,
+            expectedResult: eval(randExpression),
+            proposition: ''
     }}
 }
 
