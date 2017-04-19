@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {clickLetter, getNextGame, eraseWord, passGame, updateTimeOut, updatePoints} from '../actions';
+import {clickLetter, getNextGame, eraseWord, updateTimeOut, updatePoints} from '../actions';
 
 export class FourLetters extends React.Component {
     componentDidMount() {
@@ -63,21 +63,13 @@ export class FourLetters extends React.Component {
             return <div onClick={() => this.props.dispatch(eraseWord())} className={myClass} >ERASE</div>
         }
 
-        const passButton = () => {
-            let myClass = "button pass";
-            if (this.props.over) {
-                myClass = "button pass inactive";
-            }
-            return <div onClick={() => this.props.dispatch(passGame('fourLetters'))} className={myClass}>PASS</div>
-        }
-
         return (
             <div className="four-letters">
                 <h2>Find the {this.props.fourLetters.wordToFind.length} letters word</h2>
                 {letterDivs}
                 <div>
                     {eraseButton()}
-                    {passButton()}
+                    {this.props.passButton()}
                 </div>
                 <div className="word-proposition">
                     {this.props.fourLetters.proposition.toUpperCase()}
