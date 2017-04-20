@@ -167,14 +167,33 @@ function generateCalculusGame() {
     const signs = ['+', '-', '*'];
     const randSign1 = signs[Math.floor(Math.random()*signs.length)];
     const randSign2 = signs[Math.floor(Math.random()*signs.length)];
-    const randExpression = String(Math.ceil(Math.random()*10)) + randSign1 + String(Math.ceil(Math.random()*10)) + randSign2 + String(Math.ceil(Math.random()*10));
+    const randNumber1 = Math.floor(Math.random()*10);
+    const randNumber2 = Math.floor(Math.random()*10);
+    const randNumber3 = Math.floor(Math.random()*10);
+    const randExpression = String(randNumber1) + ' ' + randSign1 + ' ' + String(randNumber2) + ' ' + randSign2 + ' ' + String(randNumber3);
+    let expectedResult;
+    if (randSign2 === '*') {
+        expectedResult = calculate(randNumber1, calculate(randNumber2, randNumber3, randSign2), randSign1);
+    } else {
+        expectedResult = calculate(calculate(randNumber1, randNumber2, randSign1), randNumber3, randSign2);
+    }
 
     return {
         calculus: {
             expression: randExpression,
-            expectedResult: eval(randExpression),
+            expectedResult: expectedResult,
             proposition: ''
     }}
+}
+
+function calculate(a, b, sign) {
+    if (sign === '+') {
+        return a + b;
+    } else if (sign === '-') {
+        return a - b;
+    } else if (sign === '*') {
+        return a * b;
+    }
 }
 
 function breakDownLetters(word) {

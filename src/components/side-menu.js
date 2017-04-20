@@ -1,12 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-export function SideMenu(props) {
-    return (
-        <div className="side-menu">
-            Side Menu
-        </div>
-    );
+export class SideMenu extends React.Component {
+    render() {
+        return (
+            <div className="side-menu">
+                Side Menu
+            </div>
+        );
+    }
 }
 
-export default connect()(SideMenu);
+export const mapStateToProps = state => (state);
+export default connect(mapStateToProps)(SideMenu);
