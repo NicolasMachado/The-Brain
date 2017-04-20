@@ -6,6 +6,8 @@ export class Intro extends React.Component {
     render() {
         return (
             <div className="intro">
+                <h2 className="marker">Welcome to The brain</h2>
+                <div className="intro-text marker">You have 2 minutes to answer as many questions as possible. <br /><br /> Good luck!</div>
                 <div onClick={() => {this.props.dispatch(startGame()); this.props.dispatch(startTimer())}} className="button">
                     START GAME
                 </div>

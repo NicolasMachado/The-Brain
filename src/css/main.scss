@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&rel=stylesheet');
+@import url('https://fonts.googleapis.com/css?family=Londrina+Sketch|Permanent+Marker|Walter+Turncoat&rel=stylesheet');
 
 $side-menu-bk: #2b2b2b;
 $side-menu-txt: #e4e4e4;
@@ -8,14 +9,16 @@ $button-bk: #36628a;
 $button-txt: lighten($button-bk, 60%);
 $button-clicked-bk: #7c7c7c;
 $button-clicked-txt: lighten($button-clicked-bk, 40%);
-$button-default-bk: #210aaa;
+$button-default-bk: #36628a;
 $button-default-txt: #ececec;
 $button-pass-bk: #9a4444;
+$button-submit-bk: #44719a;
 $button-erase-bk: #9a8c44;
 $button-inactive-bk: #888888;
-$progress-bg-color: #ddd;
-$progress-fg-color: #a26060;
-$progress-fg-color-text: #7d3434;
+$progress-bg-color: #4a4730;
+$progress-fg-color: #cdb671;
+$progress-fg-color-text: #371212;
+$text-green: #357c43;
 
 html {
     height: 100%;
@@ -29,6 +32,25 @@ body {
     box-sizing: border-box;
 }
 
+.marker {
+font-family: 'Permanent Marker', cursive;
+}
+
+.intro-text {
+    max-width: 300px;
+    margin: 20px auto 20px auto;
+}
+
+.total-points-display {
+    color: #204479;
+    font-size: 1.2em;
+}
+
+.bonus-points-display {
+    font-size: 1.2em;
+    color: $text-green;
+}
+
 .App {
     display: -webkit-flex;
     display: flex;
@@ -36,11 +58,14 @@ body {
     flex-direction: row;
     background-color: #ccc;
     min-height: 100vh;
+    background-image: url(../images/grey.png);
 }
 
 .side-menu {
+    //background-image: url(../images/chalkboard.jpg);
     min-height: 100%;
-    min-width: 200px;
+    //min-width: 200px;
+    width: 0px;
     background-color: $side-menu-bk;
     color: $side-menu-txt;
 }
@@ -51,17 +76,14 @@ body {
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-    background-color: #ccc;
 }
 
 .game-header {
     flex: 0.5;
-    background-color: $game-header-bk;
 }
 
 .game-body {
     flex: 1;
-    background-color: $game-body-bk;
 }
 
 .letter-click {
@@ -96,26 +118,39 @@ body {
     font-size: 1.5em;
     width: 200px;
     &.won {
-        color: #c7f2cb;
-        background-color: #3e824e;
+        color: $text-green;
     }
     &.defeat {
-        color: #f7c2c2;
-        background-color: #934848;
+        color: #a43838;
     }
 }
 
 .button {
     color: $button-default-txt;
+    min-width: 100px;
+    font-size: 1em;
     background-color: $button-default-bk;
+    &:hover {
+        background-color: darken($button-default-bk, 5%);
+    }
     border-bottom: 3px solid darken($button-default-bk, 8%);
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
     border-radius: 3px;
     cursor: pointer;
     padding: 10px;
     margin: 10px;
     display: inline-block;
+    &.submit {
+        background-color: $button-submit-bk;
+        border-bottom: 3px solid darken($button-submit-bk, 8%);
+        width: 120px;
+        &:hover {
+            background-color: darken($button-submit-bk, 5%);
+        }
+    }
     &.pass {
-        width: 100px;
         background-color: $button-pass-bk;
         border-bottom: 3px solid darken($button-pass-bk, 8%);
         &:hover {
@@ -123,7 +158,6 @@ body {
         }
     }
     &.erase {
-        width: 100px;
         background-color: $button-erase-bk;
         border-bottom: 3px solid darken($button-erase-bk, 8%);
         &:hover {
@@ -141,11 +175,38 @@ body {
 }
 
 .word-proposition {
+    padding: 10px;
     font-size: 2em;
 }
 
 .timer-container {
+    padding: 30px 0 20px 0;
+}
+
+.calculus-expression {
+    display: inline-block;
+    padding: 10px 20px 10px 20px;
+    border-radius: 3px;
+    color: #603c20;
+    font-size: 1.3em;
+}
+
+#calculus-form {
+    padding: 20px 0 10px 0;
+}
+
+#calculusGuess {
+    border: 2px;
+    font-size: 1.3em;
+    text-align: center;
+    max-width: 80px;
+    padding: 5px 0 5px 0;
+    margin-bottom: 10px;
+}
+
+.outro-text {
     padding: 50px;
+    font-size: 1.3em;
 }
 
 // Circular timer

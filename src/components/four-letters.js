@@ -53,13 +53,13 @@ export class FourLetters extends React.Component {
 
         return (
             <div className="four-letters">
-                <h2>Find the {this.props.fourLetters.wordToFind.length} letters word</h2>
+                <h2 className="marker">Find the {this.props.fourLetters.wordToFind.length} letters word</h2>
                 {letterDivs}
                 <div>
                     {eraseButton()}
                     {this.props.passButton()}
                 </div>
-                <div className="word-proposition">
+                <div className="word-proposition marker">
                     {this.props.fourLetters.proposition.toUpperCase()}
                 </div>
                     {this.props.wonDiv(this.bonusPoints)}

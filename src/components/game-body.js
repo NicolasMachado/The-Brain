@@ -25,13 +25,23 @@ export class GameBody extends React.Component {
             return <div onClick={() => this.props.dispatch(passGame(this.props.currentGame))} className={myClass}>PASS</div>
         }
 
+        const submitButton = () => {
+            if (this.props.over) {
+                return <button className='button submit inactive'>SUBMIT</button>
+            }
+            return <button type="submit" className='button submit'>SUBMIT</button>
+        }
+
         const wonDiv = (bonusPoints) => {
             if (this.props.over) {
                 if (this.props.won) {
-                    return <div><div className="won-message won">CORRECT</div>
-                            <div className="points-display">10 + {bonusPoints}</div></div>
+                    const bonus = bonusPoints > 0 ? <span className='bonus-points-display'>+ {bonusPoints}</span> : '';
+                    return (<div>
+                            <div className="points-display marker">10 {bonus} points</div>
+                            <div className="won-message won marker">CORRECT</div>
+                        </div>)
                 } else {
-                    return <div className="won-message defeat">INCORRECT</div>
+                    return <div className="won-message defeat marker">INCORRECT</div>
                 }
             }
             return ''
@@ -41,7 +51,7 @@ export class GameBody extends React.Component {
         if (this.props.currentGame === 'fourLetters') {
             gameToDisplay = <FourLetters passButton={passButton} wonDiv={wonDiv} innerTimerTick={this.innerTimerTick} resetBonusPoints={this.resetBonusPoints}/>;
         } else if (this.props.currentGame === 'calculus') {
-            gameToDisplay = <Calculus passButton={passButton} wonDiv={wonDiv} innerTimerTick={this.innerTimerTick} resetBonusPoints={this.resetBonusPoints} />;
+            gameToDisplay = <Calculus passButton={passButton} wonDiv={wonDiv} innerTimerTick={this.innerTimerTick} resetBonusPoints={this.resetBonusPoints} submitButton={submitButton} />;
         } else if (this.props.currentGame === 'intro') {
             gameToDisplay = <Intro />;
         } else if (this.props.currentGame === 'outro') {

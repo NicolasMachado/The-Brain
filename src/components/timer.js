@@ -41,7 +41,7 @@ export class Timer extends React.Component {
                         percentage={(this.props.timer.currentTimer/this.props.timer.timerLength)*100}
                         timeText={this.displayTime()}/>
                 </div>
-                <div>
+                <div className="total-points-display marker">
                     Points: {this.props.points}
                 </div>
             </div>

@@ -8,7 +8,7 @@ const calculus = generateCalculusGame();
 const timer = initializeTimer(120, 0.25);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
-    timerBetweenGames: 1000,
+    timerBetweenGames: 2000,
     timeOut: false,
     over: false,
     points: 0,
@@ -95,8 +95,6 @@ export const appReducer = (state=initialState, action) => {
     }
 
     if(action.type === GUESS_CALCULUS) {
-        console.log(action.number);
-        console.log(state.calculus.expectedResult);
         let isWon = false, isOver = true;
         if (action.number === state.calculus.expectedResult) { // is it won?
             isWon = true;

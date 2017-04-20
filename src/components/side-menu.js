@@ -5,7 +5,6 @@ export class SideMenu extends React.Component {
     render() {
         return (
             <div className="side-menu">
-                Side Menu
             </div>
         );
     }

@@ -39,24 +39,29 @@ export class Calculus extends React.Component {
 
     submitCalculusResult(e) {
         e.preventDefault();
-        this.props.dispatch(guessCalculus(Number(e.target.calculusGuess.value)));
+        if (e.target.calculusGuess) {
+            this.props.dispatch(guessCalculus(Number(e.target.calculusGuess.value)));
+            e.target.calculusGuess.value = "";
+        }
     }
 
     render() {
         return (
             <div className="calculus">
-                <h2>Find the result</h2>
+                <h2 className="marker">Find the result</h2>
+                <div className="calculus-expression marker">
                     {this.props.calculus.expression}
-                <div>
-                    {this.props.passButton()}
                 </div>
                 <div className="calculus-proposition">
-                    expected: {this.props.calculus.expectedResult}
-                    <form onSubmit={e => this.submitCalculusResult(e)}>
-                        <input name='calculusGuess'></input>
+                    <form id="calculus-form" onSubmit={e => this.submitCalculusResult(e)}>
+                        <input id='calculusGuess' className="marker" name='calculusGuess' placeholder="?" autoComplete="off" required="true"></input>
+                        <div>
+                            {this.props.submitButton()}
+                            {this.props.passButton()}
+                        </div>
                     </form>
                 </div>
-                    {this.props.wonDiv(this.bonusPoints)}
+                {this.props.wonDiv(this.bonusPoints)}
             </div>
         );
     }
