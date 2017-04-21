@@ -33,7 +33,7 @@ export class Timer extends React.Component {
 
     render() {
         return (
-            <div className="game-header">
+            <div className="timer-and-points">
                 <div className="timer-container">
                     <CircularProgress
                         strokeWidth="15"
