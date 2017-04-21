@@ -34,7 +34,8 @@ export const appReducer = (state=initialState, action) => {
     if(action.type === START_GAME) {
         const game = getRandomGame();
         const newWordGame = generateWordGame();
-        return Object.assign({}, state, initialState, newWordGame, {currentGame: game});
+        const newCalculusGame = generateCalculusGame();
+        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {currentGame: game});
     }
 
     if(action.type === COUNT_DOWN) {
@@ -95,12 +96,12 @@ export const appReducer = (state=initialState, action) => {
     }
 
     if(action.type === GUESS_CALCULUS) {
-        let isWon = false, isOver = true;
+        let isWon = false;
         if (action.number === state.calculus.expectedResult) { // is it won?
             isWon = true;
         }
         return Object.assign({}, state, {
-            over: isOver,
+            over: true,
             won: isWon
         });
     }
