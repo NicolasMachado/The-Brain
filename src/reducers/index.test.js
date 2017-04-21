@@ -136,7 +136,7 @@ describe('appReducer', () => {
             expect(state.fourLetters.selectedLetters).toEqual([0, 0, 0, 0]);
             expect(state.over).toEqual(false);
             expect(state.won).toEqual(false);
-            //expect(state.currentGame).toEqual("fourLetters"); // How to test random string?
+            expect(["fourLetters", "calculus"]).toContain(state.currentGame);
         });
     });
 
