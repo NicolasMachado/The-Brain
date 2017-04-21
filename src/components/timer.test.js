@@ -9,7 +9,7 @@ describe('<Timer />', () => {
         shallow(<Timer timer={{currentTimer: 100}}/>);
     });
 
-    it('Renders the form-guess initially', () => {
+    it('Renders right divs initially', () => {
         const wrapper = shallow(<Timer points={50} timer={{currentTimer: 100}}/>);
         expect(wrapper.hasClass('timer-and-points')).toEqual(true);
         expect(wrapper.find('.total-points-display').text()).toEqual("Points: 50");
