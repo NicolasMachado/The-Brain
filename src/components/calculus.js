@@ -54,7 +54,7 @@ export class Calculus extends React.Component {
                 </div>
                 <div className="calculus-proposition">
                     <form id="calculus-form" onSubmit={e => this.submitCalculusResult(e)}>
-                        <input id='calculusGuess' className="marker" name='calculusGuess' placeholder="?" autoComplete="off" required="true"></input>
+                        <input type="number" id='calculusGuess' className="marker" name='calculusGuess' placeholder="?" autoComplete="off" required="true"></input>
                         <div>
                             {this.props.submitButton()}
                             {this.props.passButton()}
