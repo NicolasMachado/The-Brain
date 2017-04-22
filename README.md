@@ -4,10 +4,7 @@ Thinkful (https://www.thinkful.com/) third portfolio project.
 
 ## Technology
 
-<img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/react.png" height="40px" alt="ReactJS" title="ReactJS" style="display:inline-block;" />
-<img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/redux.png" height="40px" alt="Redux" title="Redux" style="display:inline-block;" />
-<img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/css3.png" height="40px" alt="CSS3" title="CSS3" style="display:inline-block;" />
-<img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/html5.png" height="40px" alt="HTML5" title="HTML5" style="display:inline-block;" />
+<img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/html5.png" height="40px" alt="HTML5" title="HTML5" style="display:inline-block;" /> | <img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/css3.png" height="40px" alt="CSS3" title="CSS3" style="display:inline-block;" /> | <img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/react.png" height="40px" alt="ReactJS" title="ReactJS" style="display:inline-block;" /> | <img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/redux.png" height="40px" alt="Redux" title="Redux" style="display:inline-block;" />
 
 ## Description
 The Brain is a simple game in which the player has 2 minutes to answer as many questions as possible. After each turn,
