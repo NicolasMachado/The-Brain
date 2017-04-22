@@ -27,4 +27,4 @@ This single-page app is designed to work on mobile, tablets and desktop. Its int
 If you want to give the game a try, head to https://nicolasmachado.github.io/The-Brain/.
 
 
-<img src="https://content.screencast.com/users/zeroots/folders/Jing/media/b4fadfb4-360f-468a-b342-997fc9085126/2017-04-04_2222.png" />
+<img src="https://raw.githubusercontent.com/NicolasMachado/The-Brain/master/src/images/react.png" />
