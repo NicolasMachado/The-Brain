@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import KeyHandler, {KEYPRESS} from 'react-key-handler';
 import {clickLetter, getNextGame, eraseWord, updateTimeOut, updatePoints} from '../actions';
 
 export class FourLetters extends React.Component {
@@ -40,8 +41,16 @@ export class FourLetters extends React.Component {
     render() {
         const letterDivs = this.props.fourLetters.shuffledWord.map((letter, i) => {
             const classClicked = this.props.fourLetters.selectedLetters[i] ? "letter-click clicked" : "letter-click";
-            return <div onClick={e => this.props.dispatch(clickLetter(i, letter))} className={classClicked} key={i}>{letter.toUpperCase()}</div>
+            return (
+                <div onClick={e => this.props.dispatch(clickLetter(i, letter))}
+                    className={classClicked} key={i}>{letter.toUpperCase()}</div>
+            );
         });
+
+        const letterHandlers = this.props.fourLetters.shuffledWord.map((letter, i) => (
+            <KeyHandler keyEventName={KEYPRESS} keyValue={letter}
+                onKeyHandle={e => this.props.dispatch(clickLetter(i, letter))}></KeyHandler>
+        ));
 
         const eraseButton = () => {
             let myClass = "button erase";
@@ -55,6 +64,7 @@ export class FourLetters extends React.Component {
             <div className="four-letters">
                 <h2 className="marker">Find the {this.props.fourLetters.wordToFind.length} letters word</h2>
                 {letterDivs}
+                {letterHandlers}
                 <div>
                     {eraseButton()}
                     {this.props.passButton()}
