@@ -5,6 +5,7 @@ import {getNextGame, updateTimeOut, updatePoints, guessCalculus} from '../action
 export class Calculus extends React.Component {
     componentDidMount() {
         this.resetBonusPoints();
+        this.calculusGuess.focus();
     }
 
     componentWillUnmount() {
@@ -54,7 +55,11 @@ export class Calculus extends React.Component {
                 </div>
                 <div className="calculus-proposition">
                     <form id="calculus-form" onSubmit={e => this.submitCalculusResult(e)}>
-                        <input type="number" id='calculusGuess' className="marker" name='calculusGuess' placeholder="?" autoComplete="off" required="true"></input>
+                        <input ref={(input) => { this.calculusGuess = input; }}
+                            type="number" id='calculusGuess'
+                            className="marker" name='calculusGuess'
+                            placeholder="?" autoComplete="off"
+                            required="true"></input>
                         <div>
                             {this.props.submitButton()}
                             {this.props.passButton()}
