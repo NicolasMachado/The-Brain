@@ -17,7 +17,9 @@
     "react-favicon": "0.0.8",
     "react-key-handler": "^0.3.0",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "superagent": "^3.5.2"
   },
   "homepage": "https://nicolasmachado.github.io/The-Brain/",
   "scripts": {

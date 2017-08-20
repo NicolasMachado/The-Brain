@@ -1,3 +1,5 @@
+const request = require('superagent');
+
 export const CLICK_LETTER = 'CLICK_LETTER';
 export const clickLetter = (i, letter) => ({
     type: CLICK_LETTER,
@@ -64,3 +66,31 @@ export const guessCalculus = (number) => ({
     type: GUESS_CALCULUS,
     number
 });
+
+export const RECORD_SCORES = 'RECORD_SCORES';
+export const recordScores = response => ({
+    type: RECORD_SCORES,
+    scores: response
+});
+
+export const postNewScore = (data) => dispatch => {
+    SARequestAPI('post', '/tbscore', data, recordScores, dispatch);
+};
+
+export const getScores = () => dispatch => {
+    SARequestAPI('get', '/tbscore', null, recordScores, dispatch);
+};
+
+//const API_URL = "https://rimworld-stories.herokuapp.com";
+const API_URL = "http://127.0.0.1:8080";
+
+// blueprint superagent function to request data from the API
+function SARequestAPI(type, url, data, actionCreator, dispatch) {
+    console.log('SA request to:' + API_URL + url);
+    request(type, API_URL + url)
+      .send(data)
+      .end(function(err, resp) {
+          const apiResp = JSON.parse(resp.text);
+          dispatch(actionCreator(apiResp))
+    });
+}

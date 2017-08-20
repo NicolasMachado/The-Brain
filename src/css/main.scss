@@ -66,12 +66,30 @@ body {
 }
 
 .side-menu {
+    text-align: center;
     background-image: url(../images/chalkboard.jpg);
     min-height: 100%;
-    min-width: 200px;
+    min-width: 250px;
     width: 0px;
     background-color: $side-menu-bk;
     color: $side-menu-txt;
+}
+
+.scores {
+    display: inline-block;
+    width: 90%;
+}
+
+.scorename {
+    text-align: left;
+    display: inline-block;
+    width: 50%;
+}
+
+.scorescore {
+    text-align: right;
+    display: inline-block;
+    width: 50%;
 }
 
 .game-container {

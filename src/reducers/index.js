@@ -1,4 +1,6 @@
-import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN, STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS, GUESS_CALCULUS} from '../actions/';
+import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN,
+  STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS,
+  GUESS_CALCULUS, RECORD_SCORES} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
@@ -12,11 +14,17 @@ export const initialState = Object.assign({}, {
     timeOut: false,
     over: false,
     points: 0,
-    won: false
+    won: false,
+    scores: []
 }, newWordGame, timer, calculus);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
+
+    if(action.type === RECORD_SCORES) {
+        console.log(action.scores);
+        return Object.assign({}, state, {scores: action.scores});
+    }
 
     if(action.type === UPDATE_POINTS) {
         const points = state.points + action.amount;
