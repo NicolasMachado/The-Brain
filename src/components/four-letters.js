@@ -48,7 +48,7 @@ export class FourLetters extends React.Component {
         });
 
         const letterHandlers = this.props.fourLetters.shuffledWord.map((letter, i) => (
-            <KeyHandler keyEventName={KEYPRESS} keyValue={letter}
+            <KeyHandler key={i} keyEventName={KEYPRESS} keyValue={letter}
                 onKeyHandle={e => this.props.dispatch(clickLetter(i, letter))}></KeyHandler>
         ));
 

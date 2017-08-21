@@ -7,7 +7,7 @@ import {fourLetterWords} from '../utils';
 const listGames = ['fourLetters', 'calculus'];
 const newWordGame = generateWordGame();
 const calculus = generateCalculusGame();
-const timer = initializeTimer(120, 0.25);
+const timer = initializeTimer(5, 0.25);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
     timerBetweenGames: 2000,
@@ -15,14 +15,16 @@ export const initialState = Object.assign({}, {
     over: false,
     points: 0,
     won: false,
-    scores: []
+    scores: {
+      highScores: [],
+      recentScores: []
+    }
 }, newWordGame, timer, calculus);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
 
     if(action.type === RECORD_SCORES) {
-        console.log(action.scores);
         return Object.assign({}, state, {scores: action.scores});
     }
 
@@ -40,10 +42,11 @@ export const appReducer = (state=initialState, action) => {
     }
 
     if(action.type === START_GAME) {
+        const scores = state.scores;
         const game = getRandomGame();
         const newWordGame = generateWordGame();
         const newCalculusGame = generateCalculusGame();
-        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {currentGame: game});
+        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {scores}, {currentGame: game});
     }
 
     if(action.type === COUNT_DOWN) {

@@ -86,7 +86,7 @@ const API_URL = "http://127.0.0.1:8080";
 
 // blueprint superagent function to request data from the API
 function SARequestAPI(type, url, data, actionCreator, dispatch) {
-    console.log('SA request to:' + API_URL + url);
+    //console.log('SA request to:' + API_URL + url);
     request(type, API_URL + url)
       .send(data)
       .end(function(err, resp) {
