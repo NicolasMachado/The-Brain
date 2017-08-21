@@ -1,6 +1,6 @@
 import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN,
   STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS,
-  GUESS_CALCULUS, RECORD_SCORES, SET_SCORE_FORM} from '../actions/';
+  GUESS_CALCULUS, RECORD_SCORES, SET_SCORE_FORM, SET_CURRENT_PLAYER_NAME} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
@@ -28,6 +28,10 @@ export const initialState = Object.assign({}, {
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
 
+    if(action.type === SET_CURRENT_PLAYER_NAME) {
+        return Object.assign({}, state, {currentPlayerName: action.name});
+    }
+
     if(action.type === SET_SCORE_FORM) {
         return Object.assign({}, state, {scoreForm: action.active, scoreFormStatus: action.status});
     }
@@ -51,10 +55,11 @@ export const appReducer = (state=initialState, action) => {
 
     if(action.type === START_GAME) {
         const scores = state.scores;
+        const currentPlayerName = state.currentPlayerName;
         const game = getRandomGame();
         const newWordGame = generateWordGame();
         const newCalculusGame = generateCalculusGame();
-        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {scores}, {currentGame: game});
+        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {scores}, {currentPlayerName}, {currentGame: game});
     }
 
     if(action.type === COUNT_DOWN) {

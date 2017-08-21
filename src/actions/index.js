@@ -1,5 +1,11 @@
 const request = require('superagent');
 
+export const SET_CURRENT_PLAYER_NAME = 'SET_CURRENT_PLAYER_NAME';
+export const setCurrentPlayerName = (name) => ({
+    type: SET_CURRENT_PLAYER_NAME,
+    name
+});
+
 export const SET_SCORE_FORM = 'SET_SCORE_FORM';
 export const setScoreForm = (active, status) => ({
     type: SET_SCORE_FORM,
