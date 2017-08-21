@@ -1,5 +1,12 @@
 const request = require('superagent');
 
+export const SET_SCORE_FORM = 'SET_SCORE_FORM';
+export const setScoreForm = (active, status) => ({
+    type: SET_SCORE_FORM,
+    active,
+    status
+});
+
 export const CLICK_LETTER = 'CLICK_LETTER';
 export const clickLetter = (i, letter) => ({
     type: CLICK_LETTER,

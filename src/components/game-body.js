@@ -47,6 +47,13 @@ export class GameBody extends React.Component {
             return ''
         }
 
+        const submitFormButton = () => {
+            if (!this.props.scoreForm) {
+                return <button className='button submit inactive'>SUBMIT</button>
+            }
+            return <button type="submit" className='button submit'>SUBMIT</button>
+        }
+
         let gameToDisplay = null;
         if (this.props.currentGame === 'fourLetters') {
             gameToDisplay = <FourLetters passButton={passButton} wonDiv={wonDiv} innerTimerTick={this.innerTimerTick} resetBonusPoints={this.resetBonusPoints}/>;
@@ -55,7 +62,7 @@ export class GameBody extends React.Component {
         } else if (this.props.currentGame === 'intro') {
             gameToDisplay = <Intro />;
         } else if (this.props.currentGame === 'outro') {
-            gameToDisplay = <Outro />;
+            gameToDisplay = <Outro submitFormButton={submitFormButton} />;
         }
 
         return (

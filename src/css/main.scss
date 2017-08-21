@@ -194,6 +194,14 @@ body {
             background-color: $button-inactive-bk;
         }
     }
+    &.loading {
+        cursor: default;
+        background-color: $button-inactive-bk;
+        border-bottom: 3px solid darken($button-inactive-bk, 8%);
+        &:hover {
+            background-color: $button-inactive-bk;
+        }
+    }
 }
 
 .word-proposition {
