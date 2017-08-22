@@ -21,7 +21,12 @@ export const initialState = Object.assign({}, {
     currentPlayerName: "",
     scores: {
       highScores: [],
-      recentScores: []
+      recentScores: [],
+      theBrain: {
+        _id: null,
+        score: null,
+        username: null
+      }
     }
 }, newWordGame, timer, calculus);
 

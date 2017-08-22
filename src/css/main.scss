@@ -62,12 +62,15 @@ body {
     flex-direction: row;
     background-color: #ccc;
     min-height: 100vh;
-    background-image: url(../images/grey.png);
+    background: url(../images/bg-body.png) no-repeat;
+    background-size: cover;
 }
 
 .side-menu {
+    font-family: 'Permanent Marker', cursive;
     text-align: center;
-    background-image: url(../images/chalkboard.jpg);
+    background: url(../images/bg-sidebar.png) no-repeat;
+    background-size: cover;
     min-height: 100%;
     min-width: 250px;
     width: 0px;
@@ -75,9 +78,31 @@ body {
     color: $side-menu-txt;
 }
 
+h3 {
+    vertical-align: middle;
+    line-height: 30px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-bottom: 1px solid #5d5d5d;
+}
+
+.imgh3 {
+    vertical-align: middle;
+}
+
 .scores {
     display: inline-block;
     width: 90%;
+}
+
+.userbrain {
+    font-size: 1.3em;
+    color: #fff;
+}
+
+.braindiv {
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 
 .scorename {

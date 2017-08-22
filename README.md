@@ -25,6 +25,7 @@ This single-page app is designed to work on mobile, tablets and desktop. Its int
 * Each mini-game is a single React component sending actions to a reducer.
 * Adding new mini-games can be done very quickly and easily.
 * A React test suite containing more than 40 test cases is implemented.
+* A Leaderboard has been added. It is connected to a Node/Express/MongoDB server.
 
 ## Test version
 
