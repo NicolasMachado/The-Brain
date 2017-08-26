@@ -1,5 +1,5 @@
 import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN,
-  STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS,
+  STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS, SHOW_SIDE_MENU,
   GUESS_CALCULUS, RECORD_SCORES, SET_SCORE_FORM, SET_CURRENT_PLAYER_NAME} from '../actions/';
 import {fourLetterWords} from '../utils';
 
@@ -7,7 +7,7 @@ import {fourLetterWords} from '../utils';
 const listGames = ['fourLetters', 'calculus'];
 const newWordGame = generateWordGame();
 const calculus = generateCalculusGame();
-const timer = initializeTimer(10, 0.25);
+const timer = initializeTimer(120, 0.25);
 export const initialState = Object.assign({}, {
     currentGame: 'intro',
     timerBetweenGames: 2000,
@@ -19,19 +19,24 @@ export const initialState = Object.assign({}, {
     scoreForm: false,
     scoreFormStatus: 'inactive',
     currentPlayerName: "",
+    showSideMenu: false,
     scores: {
       highScores: [],
       recentScores: [],
       theBrain: {
         _id: null,
-        score: null,
-        username: null
+        score: "null",
+        username: "null"
       }
     }
 }, newWordGame, timer, calculus);
 
 // ACTIONS
 export const appReducer = (state=initialState, action) => {
+
+    if(action.type === SHOW_SIDE_MENU) {
+        return Object.assign({}, state, {showSideMenu: action.param});
+    }
 
     if(action.type === SET_CURRENT_PLAYER_NAME) {
         return Object.assign({}, state, {currentPlayerName: action.name});
@@ -61,10 +66,11 @@ export const appReducer = (state=initialState, action) => {
     if(action.type === START_GAME) {
         const scores = state.scores;
         const currentPlayerName = state.currentPlayerName;
+        const showSideMenu = state.showSideMenu;
         const game = getRandomGame();
         const newWordGame = generateWordGame();
         const newCalculusGame = generateCalculusGame();
-        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {scores}, {currentPlayerName}, {currentGame: game});
+        return Object.assign({}, state, initialState, newWordGame, newCalculusGame, {showSideMenu}, {scores}, {currentPlayerName}, {currentGame: game});
     }
 
     if(action.type === COUNT_DOWN) {

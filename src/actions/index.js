@@ -94,6 +94,12 @@ export const getScores = () => dispatch => {
     SARequestAPI('get', '/tbscore', null, recordScores, dispatch);
 };
 
+export const SHOW_SIDE_MENU = 'SHOW_SIDE_MENU';
+export const showSideMenu = (param) => ({
+    type: SHOW_SIDE_MENU,
+    param
+});
+
 //const API_URL = "https://rimworld-stories.herokuapp.com";
 const API_URL = "http://127.0.0.1:8080";
 
@@ -104,6 +110,6 @@ function SARequestAPI(type, url, data, actionCreator, dispatch) {
       .send(data)
       .end(function(err, resp) {
           const apiResp = JSON.parse(resp.text);
-          dispatch(actionCreator(apiResp))
+          dispatch(actionCreator(apiResp));
     });
 }
