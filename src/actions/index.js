@@ -100,8 +100,8 @@ export const showSideMenu = (param) => ({
     param
 });
 
-//const API_URL = "https://rimworld-stories.herokuapp.com";
-const API_URL = "http://127.0.0.1:8080";
+const API_URL = "https://rimworld-stories.herokuapp.com";
+//const API_URL = "http://127.0.0.1:8080";
 
 // blueprint superagent function to request data from the API
 function SARequestAPI(type, url, data, actionCreator, dispatch) {
