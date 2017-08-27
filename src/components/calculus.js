@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getNextGame, updateTimeOut, updatePoints, guessCalculus} from '../actions';
+import {getNextGame, updateTimeOut, updatePoints, guessCalculus, correctCalculus} from '../actions';
+import KeyHandler, {KEYUP} from 'react-key-handler';
 
 export class Calculus extends React.Component {
     componentDidMount() {
         this.resetBonusPoints();
-        this.calculusGuess.focus();
     }
 
     componentWillUnmount() {
@@ -46,25 +46,27 @@ export class Calculus extends React.Component {
         }
     }
 
+    keyHandlers() {
+        let handlers = [];
+        for (let i=0; i<10; i++) {
+            handlers.push(<KeyHandler key={i} keyEventName={KEYUP} keyValue={String(i)} onKeyHandle={e => this.props.dispatch(guessCalculus(String(i)))}></KeyHandler>)
+        }
+        handlers.push(<KeyHandler key={1000} keyEventName={KEYUP} keyValue="-" onKeyHandle={e => this.props.dispatch(guessCalculus('-'))}></KeyHandler>)
+        handlers.push(<KeyHandler key={2000} keyEventName={KEYUP} keyValue="Backspace" onKeyHandle={e => this.props.dispatch(correctCalculus())}></KeyHandler>)
+        return handlers
+    }
+
     render() {
         return (
             <div className="calculus">
                 <h2 className="marker">Find the result</h2>
+                {this.keyHandlers()}
                 <div className="calculus-expression marker">
                     {this.props.calculus.expression}
                 </div>
-                <div className="calculus-proposition">
-                    <form id="calculus-form" onSubmit={e => this.submitCalculusResult(e)}>
-                        <input ref={(input) => { this.calculusGuess = input; }}
-                            type="number" id='calculusGuess'
-                            className="marker" name='calculusGuess'
-                            placeholder="?" autoComplete="off"
-                            required="true"></input>
-                        <div>
-                            {this.props.submitButton()}
-                            {this.props.passButton()}
-                        </div>
-                    </form>
+                {this.props.passButton()}
+                <div className="marker word-proposition">
+                    {this.props.calculus.proposition || "?"}
                 </div>
                 {this.props.wonDiv(this.bonusPoints)}
             </div>

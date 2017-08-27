@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import KeyHandler, {KEYPRESS} from 'react-key-handler';
+import KeyHandler, {KEYUP} from 'react-key-handler';
 import {clickLetter, getNextGame, eraseWord, updateTimeOut, updatePoints} from '../actions';
 
 export class FourLetters extends React.Component {
     componentDidMount() {
         this.resetBonusPoints();
+        this.letterTimer = null;
     }
 
     componentWillUnmount() {
@@ -38,6 +39,14 @@ export class FourLetters extends React.Component {
         this.bonusPoints = this.props.innerTimerTick(this.bonusPoints, this.innerTimer);
     }
 
+    letterSelect(i, letter) {
+        console.log(this.letterTimer + ' ' + i + ' ' + letter)
+        if (!this.letterTimer && !this.props.fourLetters.selectedLetters[i]) {
+            this.props.dispatch(clickLetter(i, letter));
+            this.letterTimer = setTimeout(() => { this.letterTimer = null }, 50);
+        }
+    }
+
     render() {
         const letterDivs = this.props.fourLetters.shuffledWord.map((letter, i) => {
             const classClicked = this.props.fourLetters.selectedLetters[i] ? "letter-click clicked" : "letter-click";
@@ -48,8 +57,8 @@ export class FourLetters extends React.Component {
         });
 
         const letterHandlers = this.props.fourLetters.shuffledWord.map((letter, i) => (
-            <KeyHandler key={i} keyEventName={KEYPRESS} keyValue={letter}
-                onKeyHandle={e => this.props.dispatch(clickLetter(i, letter))}></KeyHandler>
+            <KeyHandler key={i} keyEventName={KEYUP} keyValue={letter}
+                onKeyHandle={e => this.letterSelect(i, letter)}></KeyHandler>
         ));
 
         const eraseButton = () => {
@@ -64,7 +73,13 @@ export class FourLetters extends React.Component {
             <div className="four-letters">
                 <h2 className="marker">Find the {this.props.fourLetters.wordToFind.length} letters word</h2>
                 {letterDivs}
+
                 {letterHandlers}
+                <KeyHandler keyEventName={KEYUP} keyValue='Backspace'
+                    onKeyHandle={e => this.props.dispatch(eraseWord())}></KeyHandler>
+                <KeyHandler keyEventName={KEYUP} keyValue='Delete'
+                    onKeyHandle={e => this.props.dispatch(eraseWord())}></KeyHandler>
+
                 <div>
                     {eraseButton()}
                     {this.props.passButton()}

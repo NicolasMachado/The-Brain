@@ -117,9 +117,9 @@ body {
     &.header {
         margin: 8px 8px 0 8px;
         position: fixed;
-        height: 50px;
-        width: 50px;
-        background: url(../images/animated-trophy.gif) no-repeat;
+        height: 40px;
+        width: 40px;
+        background: url(../images/trophy.png) no-repeat;
         background-size: cover;
     }
 }
@@ -305,6 +305,12 @@ h3 {
     border-radius: 3px;
     color: #603c20;
     font-size: 1.3em;
+}
+
+.calculus-proposition {
+    padding: 20px 0 20px 0;
+    font-size: 1.5em;
+    line-height: 1.5em;
 }
 
 #calculus-form {

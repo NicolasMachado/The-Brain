@@ -5,6 +5,7 @@ import Intro from './intro';
 import Outro from './outro';
 import Calculus from './calculus';
 import {passGame} from '../actions';
+import KeyHandler, {KEYUP} from 'react-key-handler';
 
 export class GameBody extends React.Component {
 
@@ -22,7 +23,11 @@ export class GameBody extends React.Component {
             if (this.props.over) {
                 myClass = "button pass inactive";
             }
-            return <div onClick={() => this.props.dispatch(passGame(this.props.currentGame))} className={myClass}>PASS</div>
+            return (<div>
+            <div onClick={() => this.props.dispatch(passGame(this.props.currentGame))} className={myClass}>PASS</div>
+            <KeyHandler keyEventName={KEYUP} keyValue=' '
+                onKeyHandle={e => this.props.dispatch(passGame(this.props.currentGame))}></KeyHandler>
+            </div>)
         }
 
         const submitButton = () => {

@@ -1,6 +1,6 @@
 import {CLICK_LETTER, GET_NEXT_GAME, ERASE_WORD, PASS_GAME, START_TIMER, COUNT_DOWN,
   STOP_TIMER, START_GAME, END_GAME, UPDATE_TIME_OUT, UPDATE_POINTS, SHOW_SIDE_MENU,
-  GUESS_CALCULUS, RECORD_SCORES, SET_SCORE_FORM, SET_CURRENT_PLAYER_NAME} from '../actions/';
+  GUESS_CALCULUS, RECORD_SCORES, SET_SCORE_FORM, SET_CURRENT_PLAYER_NAME, CORRECT_CALCULUS} from '../actions/';
 import {fourLetterWords} from '../utils';
 
 // INITIALIZATION
@@ -25,8 +25,8 @@ export const initialState = Object.assign({}, {
       recentScores: [],
       theBrain: {
         _id: null,
-        score: "null",
-        username: "null"
+        score: "",
+        username: ""
       }
     }
 }, newWordGame, timer, calculus);
@@ -130,15 +130,30 @@ export const appReducer = (state=initialState, action) => {
             }});
     }
 
-    if(action.type === GUESS_CALCULUS) {
-        let isWon = false;
-        if (action.number === state.calculus.expectedResult) { // is it won?
+    if(action.type === GUESS_CALCULUS && !state.over && (state.calculus.proposition.length < 6)) {
+        let proposition = state.calculus.proposition + action.letter;
+        let isWon, isOver = false;
+        if (proposition === String(state.calculus.expectedResult)) { // is it won?
             isWon = true;
+            isOver = true;
         }
         return Object.assign({}, state, {
-            over: true,
-            won: isWon
-        });
+            over: isOver,
+            won: isWon,
+            calculus: {
+                expectedResult: state.calculus.expectedResult,
+                expression: state.calculus.expression,
+                proposition
+            }});
+    }
+
+    if(action.type === CORRECT_CALCULUS && (state.calculus.proposition.length > 0)) {
+        return Object.assign({}, state, {
+            calculus: {
+                expectedResult: state.calculus.expectedResult,
+                expression: state.calculus.expression,
+                proposition: state.calculus.proposition.slice(0, -1)
+            }});
     }
 
     if(action.type === ERASE_WORD && !state.over && state.fourLetters.proposition.length > 0) {

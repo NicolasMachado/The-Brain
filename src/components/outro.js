@@ -5,6 +5,7 @@ import {startGame, startTimer, postNewScore, setScoreForm, setCurrentPlayerName}
 export class Outro extends React.Component {
 
     componentDidMount() {
+        this.username.focus();
         if (this.props.currentPlayerName) {
             this.props.dispatch(setScoreForm(true, "active"));
         } else {
@@ -44,7 +45,10 @@ export class Outro extends React.Component {
                       Your score is {this.props.points}
                   </div>
                   <p className="marker">Please enter your name below to submit your score to the leaderboard</p>
-                  <input defaultValue={this.props.currentPlayerName} maxLength={this.props.maxNameLength} type="text" name="username" className="usernameinput marker" onChange={(e) => {this.checkInput()}}></input><br/>
+                  <input defaultValue={this.props.currentPlayerName} maxLength={this.props.maxNameLength}
+                      ref={(input) => { this.username = input; }}
+                      type="text" name="username" className="usernameinput marker"
+                      onChange={(e) => {this.checkInput()}}></input><br/>
                   <button type="submit" className={classes}>SUBMIT</button>
               </form>
           )
