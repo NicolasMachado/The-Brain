@@ -6,6 +6,7 @@ import KeyHandler, {KEYUP} from 'react-key-handler';
 export class Calculus extends React.Component {
     componentDidMount() {
         this.resetBonusPoints();
+        this.calculusGuess.focus();
     }
 
     componentWillUnmount() {
@@ -69,6 +70,7 @@ export class Calculus extends React.Component {
                     {this.props.calculus.proposition || "?"}
                 </div>
                 {this.props.wonDiv(this.bonusPoints)}
+                <input ref={(input) => { this.calculusGuess = input; }} type="number" id='calculusGuess' hidden></input>
             </div>
         );
     }
