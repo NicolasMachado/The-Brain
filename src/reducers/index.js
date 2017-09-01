@@ -130,10 +130,10 @@ export const appReducer = (state=initialState, action) => {
             }});
     }
 
-    if(action.type === GUESS_CALCULUS && !state.over && (state.calculus.proposition.length < 6)) {
-        let proposition = state.calculus.proposition + action.letter;
+    if(action.type === GUESS_CALCULUS && !state.over) {
+        let proposition = action.number;
         let isWon, isOver = false;
-        if (proposition === String(state.calculus.expectedResult)) { // is it won?
+        if (proposition === state.calculus.expectedResult) { // is it won?
             isWon = true;
             isOver = true;
         }

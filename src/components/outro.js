@@ -5,13 +5,14 @@ import {startGame, startTimer, postNewScore, setScoreForm, setCurrentPlayerName}
 export class Outro extends React.Component {
 
     componentDidMount() {
-        this.username.focus();
-        if (this.props.currentPlayerName) {
-            this.props.dispatch(setScoreForm(true, "active"));
-        } else {
-            this.props.dispatch(setScoreForm(true, "inactive"));
+        if (this.username) {
+            this.username.focus();
+            if (this.props.currentPlayerName) {
+                this.props.dispatch(setScoreForm(true, "active"));
+            } else {
+                this.props.dispatch(setScoreForm(true, "inactive"));
+            }
         }
-
     }
 
     submitNewComment(e) {

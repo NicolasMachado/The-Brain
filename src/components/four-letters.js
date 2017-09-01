@@ -40,7 +40,6 @@ export class FourLetters extends React.Component {
     }
 
     letterSelect(i, letter) {
-        console.log(this.letterTimer + ' ' + i + ' ' + letter)
         if (!this.letterTimer && !this.props.fourLetters.selectedLetters[i]) {
             this.props.dispatch(clickLetter(i, letter));
             this.letterTimer = setTimeout(() => { this.letterTimer = null }, 50);

@@ -75,9 +75,9 @@ export const updatePoints = (amount) => ({
 });
 
 export const GUESS_CALCULUS = 'GUESS_CALCULUS';
-export const guessCalculus = (letter) => ({
+export const guessCalculus = (number) => ({
     type: GUESS_CALCULUS,
-    letter
+    number
 });
 
 export const CORRECT_CALCULUS = 'CORRECT_CALCULUS';
